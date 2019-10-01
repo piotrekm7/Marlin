@@ -427,7 +427,7 @@
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
 #define TEMP_SENSOR_5 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 1
 #define TEMP_SENSOR_CHAMBER 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
@@ -736,7 +736,7 @@
  */
 #define DEFAULT_AXIS_STEPS_PER_UNIT \
   {                                 \
-    2560, 2560, 6400, 1536          \
+    2560, 2560, 6400, 6610          \
   }
 
 /**
@@ -762,7 +762,7 @@
  */
 #define DEFAULT_MAX_ACCELERATION \
   {                              \
-    3000, 3000, 100, 10000       \
+    6000, 6000, 100, 10000       \
   }
 
 //#define MAX_ACCELERATION_CAP // Define limit that M201 cannot exceed as 2x default
@@ -1084,8 +1084,8 @@
 #define Y_BED_SIZE 300
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define X_MIN_POS -40
+#define Y_MIN_POS -40
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE

@@ -76,8 +76,8 @@ private:
 
   static bool file_open(char* filename) {
     if (!dummy_transfer) {
-      card.initsd();
-      card.openFile(filename, false);
+      card.mount();
+      card.openFileWrite(filename);
       if (!card.isFileOpen()) return false;
     }
     transfer_active = true;
@@ -242,7 +242,7 @@ public:
       uint8_t protocol() { return (meta >> 4) & 0xF; }
       uint8_t type() { return meta & 0xF; }
       void reset() { token = 0; sync = 0; meta = 0; size = 0; checksum = 0; }
-      uint8_t data[1];
+      uint8_t data[2];
     };
 
     union Footer {
@@ -305,6 +305,9 @@ public:
     #if ENABLED(SDSUPPORT)
       PORT_REDIRECT(card.transfer_port_index);
     #endif
+
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Warray-bounds"
 
     while (PENDING(millis(), transfer_window)) {
       switch (stream_state) {
@@ -439,6 +442,8 @@ public:
           break;
       }
     }
+
+    #pragma GCC diagnostic pop
   }
 
   void dispatch() {

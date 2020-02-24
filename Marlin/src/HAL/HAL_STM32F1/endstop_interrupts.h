@@ -50,9 +50,9 @@
 #include "../../module/endstops.h"
 
 // One ISR for all EXT-Interrupts
-void endstop_ISR(void) { endstops.update(); }
+void endstop_ISR() { endstops.update(); }
 
-void setup_endstop_interrupts(void) {
+void setup_endstop_interrupts() {
   #if HAS_X_MAX
     attachInterrupt(X_MAX_PIN, endstop_ISR, CHANGE); // assign it
   #endif
@@ -82,6 +82,12 @@ void setup_endstop_interrupts(void) {
   #endif
   #if HAS_Z3_MIN
     attachInterrupt(Z3_MIN_PIN, endstop_ISR, CHANGE);
+  #endif
+    #if HAS_Z4_MAX
+    attachInterrupt(Z4_MAX_PIN, endstop_ISR, CHANGE);
+  #endif
+  #if HAS_Z4_MIN
+    attachInterrupt(Z4_MIN_PIN, endstop_ISR, CHANGE);
   #endif
   #if HAS_Z_MIN_PROBE_PIN
     attachInterrupt(Z_MIN_PROBE_PIN, endstop_ISR, CHANGE);

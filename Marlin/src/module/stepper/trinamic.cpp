@@ -44,9 +44,9 @@ enum StealthIndex : uint8_t { STEALTH_AXIS_XY, STEALTH_AXIS_Z, STEALTH_AXIS_E };
 //   AI = Axis Enum Index
 // SWHW = SW/SH UART selection
 #if ENABLED(TMC_USE_SW_SPI)
-  #define __TMC_SPI_DEFINE(IC, ST, L, AI) TMCMarlin<IC##Stepper, L, AI> stepper##ST(ST##_CS_PIN, ST##_RSENSE, TMC_SW_MOSI, TMC_SW_MISO, TMC_SW_SCK)
+  #define __TMC_SPI_DEFINE(IC, ST, L, AI) TMCMarlin<IC##Stepper, L, AI> stepper##ST(ST##_CS_PIN, ST##_RSENSE, TMC_SW_MOSI, TMC_SW_MISO, TMC_SW_SCK, ST##_CHAIN_POS)
 #else
-  #define __TMC_SPI_DEFINE(IC, ST, L, AI) TMCMarlin<IC##Stepper, L, AI> stepper##ST(ST##_CS_PIN, ST##_RSENSE)
+  #define __TMC_SPI_DEFINE(IC, ST, L, AI) TMCMarlin<IC##Stepper, L, AI> stepper##ST(ST##_CS_PIN, ST##_RSENSE, ST##_CHAIN_POS)
 #endif
 
 #define TMC_UART_HW_DEFINE(IC, ST, L, AI) TMCMarlin<IC##Stepper, L, AI> stepper##ST(&ST##_HARDWARE_SERIAL, ST##_RSENSE, ST##_SLAVE_ADDRESS)
@@ -88,6 +88,9 @@ enum StealthIndex : uint8_t { STEALTH_AXIS_XY, STEALTH_AXIS_Z, STEALTH_AXIS_E };
 #if AXIS_HAS_SPI(Z3)
   TMC_SPI_DEFINE(Z3, Z);
 #endif
+#if AXIS_HAS_SPI(Z4)
+  TMC_SPI_DEFINE(Z4, Z);
+#endif
 #if AXIS_HAS_SPI(E0)
   TMC_SPI_DEFINE_E(0);
 #endif
@@ -105,6 +108,10 @@ enum StealthIndex : uint8_t { STEALTH_AXIS_XY, STEALTH_AXIS_Z, STEALTH_AXIS_E };
 #endif
 #if AXIS_HAS_SPI(E5)
   TMC_SPI_DEFINE_E(5);
+#endif
+
+#ifndef TMC_BAUD_RATE
+  #define TMC_BAUD_RATE 115200
 #endif
 
 #if HAS_DRIVER(TMC2130)
@@ -245,6 +252,13 @@ enum StealthIndex : uint8_t { STEALTH_AXIS_XY, STEALTH_AXIS_Z, STEALTH_AXIS_E };
       TMC_UART_DEFINE(SW, Z3, Z);
     #endif
   #endif
+  #if AXIS_HAS_UART(Z4)
+    #ifdef Z4_HARDWARE_SERIAL
+      TMC_UART_DEFINE(HW, Z4, Z);
+    #else
+      TMC_UART_DEFINE(SW, Z4, Z);
+    #endif
+  #endif
   #if AXIS_HAS_UART(E0)
     #ifdef E0_HARDWARE_SERIAL
       TMC_UART_DEFINE_E(HW, 0);
@@ -287,97 +301,132 @@ enum StealthIndex : uint8_t { STEALTH_AXIS_XY, STEALTH_AXIS_Z, STEALTH_AXIS_E };
       TMC_UART_DEFINE_E(SW, 5);
     #endif
   #endif
+  #if AXIS_HAS_UART(E6)
+    #ifdef E6_HARDWARE_SERIAL
+      TMC_UART_DEFINE_E(HW, 6);
+    #else
+      TMC_UART_DEFINE_E(SW, 6);
+    #endif
+  #endif
+  #if AXIS_HAS_UART(E7)
+    #ifdef E7_HARDWARE_SERIAL
+      TMC_UART_DEFINE_E(HW, 7);
+    #else
+      TMC_UART_DEFINE_E(SW, 7);
+    #endif
+  #endif
 
   void tmc_serial_begin() {
     #if AXIS_HAS_UART(X)
       #ifdef X_HARDWARE_SERIAL
-        X_HARDWARE_SERIAL.begin(115200);
+        X_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperX.beginSerial(115200);
+        stepperX.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(X2)
       #ifdef X2_HARDWARE_SERIAL
-        X2_HARDWARE_SERIAL.begin(115200);
+        X2_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperX2.beginSerial(115200);
+        stepperX2.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(Y)
       #ifdef Y_HARDWARE_SERIAL
-        Y_HARDWARE_SERIAL.begin(115200);
+        Y_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperY.beginSerial(115200);
+        stepperY.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(Y2)
       #ifdef Y2_HARDWARE_SERIAL
-        Y2_HARDWARE_SERIAL.begin(115200);
+        Y2_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperY2.beginSerial(115200);
+        stepperY2.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(Z)
       #ifdef Z_HARDWARE_SERIAL
-        Z_HARDWARE_SERIAL.begin(115200);
+        Z_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperZ.beginSerial(115200);
+        stepperZ.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(Z2)
       #ifdef Z2_HARDWARE_SERIAL
-        Z2_HARDWARE_SERIAL.begin(115200);
+        Z2_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperZ2.beginSerial(115200);
+        stepperZ2.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(Z3)
       #ifdef Z3_HARDWARE_SERIAL
-        Z3_HARDWARE_SERIAL.begin(115200);
+        Z3_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperZ3.beginSerial(115200);
+        stepperZ3.beginSerial(TMC_BAUD_RATE);
+      #endif
+    #endif
+    #if AXIS_HAS_UART(Z4)
+      #ifdef Z4_HARDWARE_SERIAL
+        Z4_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
+      #else
+        stepperZ4.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(E0)
       #ifdef E0_HARDWARE_SERIAL
-        E0_HARDWARE_SERIAL.begin(115200);
+        E0_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperE0.beginSerial(115200);
+        stepperE0.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(E1)
       #ifdef E1_HARDWARE_SERIAL
-        E1_HARDWARE_SERIAL.begin(115200);
+        E1_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperE1.beginSerial(115200);
+        stepperE1.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(E2)
       #ifdef E2_HARDWARE_SERIAL
-        E2_HARDWARE_SERIAL.begin(115200);
+        E2_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperE2.beginSerial(115200);
+        stepperE2.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(E3)
       #ifdef E3_HARDWARE_SERIAL
-        E3_HARDWARE_SERIAL.begin(115200);
+        E3_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperE3.beginSerial(115200);
+        stepperE3.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(E4)
       #ifdef E4_HARDWARE_SERIAL
-        E4_HARDWARE_SERIAL.begin(115200);
+        E4_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperE4.beginSerial(115200);
+        stepperE4.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
     #if AXIS_HAS_UART(E5)
       #ifdef E5_HARDWARE_SERIAL
-        E5_HARDWARE_SERIAL.begin(115200);
+        E5_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
       #else
-        stepperE5.beginSerial(115200);
+        stepperE5.beginSerial(TMC_BAUD_RATE);
+      #endif
+    #endif
+    #if AXIS_HAS_UART(E6)
+      #ifdef E6_HARDWARE_SERIAL
+        E6_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
+      #else
+        stepperE6.beginSerial(TMC_BAUD_RATE);
+      #endif
+    #endif
+    #if AXIS_HAS_UART(E7)
+      #ifdef E7_HARDWARE_SERIAL
+        E7_HARDWARE_SERIAL.begin(TMC_BAUD_RATE);
+      #else
+        stepperE7.beginSerial(TMC_BAUD_RATE);
       #endif
     #endif
   }
@@ -612,6 +661,9 @@ void restore_trinamic_drivers() {
   #if AXIS_IS_TMC(Z3)
     stepperZ3.push();
   #endif
+  #if AXIS_IS_TMC(Z4)
+    stepperZ4.push();
+  #endif
   #if AXIS_IS_TMC(E0)
     stepperE0.push();
   #endif
@@ -629,6 +681,12 @@ void restore_trinamic_drivers() {
   #endif
   #if AXIS_IS_TMC(E5)
     stepperE5.push();
+  #endif
+  #if AXIS_IS_TMC(E6)
+    stepperE6.push();
+  #endif
+  #if AXIS_IS_TMC(E7)
+    stepperE7.push();
   #endif
 }
 
@@ -653,93 +711,6 @@ void reset_trinamic_drivers() {
     #endif
   };
 
-  #if TMC_USE_CHAIN
-
-    enum TMC_axis_enum : unsigned char { _, X, Y, Z, X2, Y2, Z2, Z3, E0, E1, E2, E3, E4, E5 };
-    #define __TMC_CHAIN(Q,V) do{ stepper##Q.set_chain_info(Q,V); }while(0)
-    #define _TMC_CHAIN(Q) __TMC_CHAIN(Q, Q##_CHAIN_POS)
-
-    #if AXIS_HAS_SPI(X)                  // First set chain array to uninitialized
-      __TMC_CHAIN(X, 0);
-    #endif
-    #if AXIS_HAS_SPI(X2)
-      __TMC_CHAIN(X2, 0);
-    #endif
-    #if AXIS_HAS_SPI(Y)
-      __TMC_CHAIN(Y, 0);
-    #endif
-    #if AXIS_HAS_SPI(Y2)
-      __TMC_CHAIN(Y2, 0);
-    #endif
-    #if AXIS_HAS_SPI(Z)
-      __TMC_CHAIN(Z, 0);
-    #endif
-    #if AXIS_HAS_SPI(Z2)
-      __TMC_CHAIN(Z2, 0);
-    #endif
-    #if AXIS_HAS_SPI(Z3)
-      __TMC_CHAIN(Z3, 0);
-    #endif
-    #if AXIS_HAS_SPI(E0)
-      __TMC_CHAIN(E0, 0);
-    #endif
-    #if AXIS_HAS_SPI(E1)
-      __TMC_CHAIN(E1, 0);
-    #endif
-    #if AXIS_HAS_SPI(E2)
-      __TMC_CHAIN(E2, 0);
-    #endif
-    #if AXIS_HAS_SPI(E3)
-      __TMC_CHAIN(E3, 0);
-    #endif
-    #if AXIS_HAS_SPI(E4)
-      __TMC_CHAIN(E4, 0);
-    #endif
-    #if AXIS_HAS_SPI(E5)
-      __TMC_CHAIN(E5, 0);
-    #endif
-
-    #if AXIS_HAS_SPI(X) && X_CHAIN_POS             // Now set up the SPI chain
-      _TMC_CHAIN(X);
-    #endif
-    #if AXIS_HAS_SPI(X2) && X2_CHAIN_POS
-      _TMC_CHAIN(X2);
-    #endif
-    #if AXIS_HAS_SPI(Y) && Y_CHAIN_POS
-      _TMC_CHAIN(Y);
-    #endif
-    #if AXIS_HAS_SPI(Y2) && Y2_CHAIN_POS
-      _TMC_CHAIN(Y2);
-    #endif
-    #if AXIS_HAS_SPI(Z) && Z_CHAIN_POS
-      _TMC_CHAIN(Z);
-    #endif
-    #if AXIS_HAS_SPI(Z2) && Z2_CHAIN_POS
-      _TMC_CHAIN(Z2);
-    #endif
-    #if AXIS_HAS_SPI(Z3) && Z3_CHAIN_POS
-      _TMC_CHAIN(Z3);
-    #endif
-    #if AXIS_HAS_SPI(E0) && E0_CHAIN_POS
-      _TMC_CHAIN(E0);
-    #endif
-    #if AXIS_HAS_SPI(E1) && E1_CHAIN_POS
-      _TMC_CHAIN(E1);
-    #endif
-    #if AXIS_HAS_SPI(E2) && E2_CHAIN_POS
-      _TMC_CHAIN(E2);
-    #endif
-    #if AXIS_HAS_SPI(E3) && E3_CHAIN_POS
-      _TMC_CHAIN(E3);
-    #endif
-    #if AXIS_HAS_SPI(E4) && E4_CHAIN_POS
-      _TMC_CHAIN(E4);
-    #endif
-    #if AXIS_HAS_SPI(E5) && E5_CHAIN_POS
-      _TMC_CHAIN(E5);
-    #endif
-  #endif // TMC_USE_CHAIN
-
   #if AXIS_IS_TMC(X)
     _TMC_INIT(X, STEALTH_AXIS_XY);
   #endif
@@ -761,6 +732,9 @@ void reset_trinamic_drivers() {
   #if AXIS_IS_TMC(Z3)
     _TMC_INIT(Z3, STEALTH_AXIS_Z);
   #endif
+  #if AXIS_IS_TMC(Z4)
+    _TMC_INIT(Z4, STEALTH_AXIS_Z);
+  #endif
   #if AXIS_IS_TMC(E0)
     _TMC_INIT(E0, STEALTH_AXIS_E);
   #endif
@@ -778,6 +752,12 @@ void reset_trinamic_drivers() {
   #endif
   #if AXIS_IS_TMC(E5)
     _TMC_INIT(E5, STEALTH_AXIS_E);
+  #endif
+  #if AXIS_IS_TMC(E6)
+    _TMC_INIT(E6, STEALTH_AXIS_E);
+  #endif
+  #if AXIS_IS_TMC(E7)
+    _TMC_INIT(E7, STEALTH_AXIS_E);
   #endif
 
   #if USE_SENSORLESS
@@ -809,6 +789,9 @@ void reset_trinamic_drivers() {
       #endif
       #if AXIS_HAS_STALLGUARD(Z3)
         stepperZ3.homing_threshold(Z_STALL_SENSITIVITY);
+      #endif
+      #if AXIS_HAS_STALLGUARD(Z4)
+        stepperZ4.homing_threshold(Z_STALL_SENSITIVITY);
       #endif
     #endif
   #endif

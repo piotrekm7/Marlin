@@ -21,7 +21,7 @@
  */
 
 #include "../gcode.h"
-#include "../../Marlin.h"
+#include "../../MarlinCore.h"
 #include "../../module/planner.h"
 
 #if DISABLED(NO_VOLUMETRICS)
@@ -41,8 +41,9 @@
       // setting any extruder filament size disables volumetric on the assumption that
       // slicers either generate in extruder values as cubic mm or as as filament feeds
       // for all extruders
-      if ( (parser.volumetric_enabled = (parser.value_linear_units() != 0)) )
-        planner.set_filament_size(target_extruder, parser.value_linear_units());
+      const float dval = parser.value_linear_units();
+      if ( (parser.volumetric_enabled = (dval != 0)) )
+        planner.set_filament_size(target_extruder, dval);
     }
     planner.calculate_volumetric_multipliers();
   }
@@ -95,7 +96,7 @@ void GcodeSuite::M204() {
   if (!parser.seen("PRST")) {
     SERIAL_ECHOPAIR("Acceleration: P", planner.settings.acceleration);
     SERIAL_ECHOPAIR(" R", planner.settings.retract_acceleration);
-    SERIAL_ECHOLNPAIR(" T", planner.settings.travel_acceleration);
+    SERIAL_ECHOLNPAIR_P(SP_T_STR, planner.settings.travel_acceleration);
   }
   else {
     //planner.synchronize();
@@ -117,10 +118,10 @@ void GcodeSuite::M204() {
  *    Y = Max Y Jerk (units/sec^2)
  *    Z = Max Z Jerk (units/sec^2)
  *    E = Max E Jerk (units/sec^2)
- *    J = Junction Deviation (mm) (Requires JUNCTION_DEVIATION)
+ *    J = Junction Deviation (mm) (If not using CLASSIC_JERK)
  */
 void GcodeSuite::M205() {
-  #if ENABLED(JUNCTION_DEVIATION)
+  #if DISABLED(CLASSIC_JERK)
     #define J_PARAM  "J"
   #else
     #define J_PARAM
@@ -136,7 +137,7 @@ void GcodeSuite::M205() {
   if (parser.seen('B')) planner.settings.min_segment_time_us = parser.value_ulong();
   if (parser.seen('S')) planner.settings.min_feedrate_mm_s = parser.value_linear_units();
   if (parser.seen('T')) planner.settings.min_travel_feedrate_mm_s = parser.value_linear_units();
-  #if ENABLED(JUNCTION_DEVIATION)
+  #if DISABLED(CLASSIC_JERK)
     if (parser.seen('J')) {
       const float junc_dev = parser.value_linear_units();
       if (WITHIN(junc_dev, 0.01f, 0.3f)) {
@@ -150,22 +151,17 @@ void GcodeSuite::M205() {
     }
   #endif
   #if HAS_CLASSIC_JERK
-    if (parser.seen('X'))
-     planner.set_max_jerk(X_AXIS, parser.value_linear_units());
-
-    if (parser.seen('Y'))
-      planner.set_max_jerk(Y_AXIS, parser.value_linear_units());
+    if (parser.seen('X')) planner.set_max_jerk(X_AXIS, parser.value_linear_units());
+    if (parser.seen('Y')) planner.set_max_jerk(Y_AXIS, parser.value_linear_units());
     if (parser.seen('Z')) {
       planner.set_max_jerk(Z_AXIS, parser.value_linear_units());
-      #if HAS_MESH
-        if (planner.max_jerk[Z_AXIS] <= 0.1f)
+      #if HAS_MESH && DISABLED(LIMITED_JERK_EDITING)
+        if (planner.max_jerk.z <= 0.1f)
           SERIAL_ECHOLNPGM("WARNING! Low Z Jerk may lead to unwanted pauses.");
       #endif
     }
-
-    #if !BOTH(JUNCTION_DEVIATION, LIN_ADVANCE)
+    #if HAS_CLASSIC_E_JERK
       if (parser.seen('E')) planner.set_max_jerk(E_AXIS, parser.value_linear_units());
-
     #endif
   #endif
 }

@@ -71,9 +71,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-<<<<<<< HEAD
-#define STRING_CONFIG_H_AUTHOR "Piotr Muras" // Who made the changes.
-=======
+#define STRING_CONFIG_H_AUTHOR "Piotr Muras"            // Who made the changes.
 #define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
@@ -167,11 +165,11 @@
  */
 //#define MK2_MULTIPLEXER
 #if ENABLED(MK2_MULTIPLEXER)
-  // Override the default DIO selector pins here, if needed.
-  // Some pins files may provide defaults for these pins.
-  //#define E_MUX0_PIN 40  // Always Required
-  //#define E_MUX1_PIN 42  // Needed for 3 to 8 inputs
-  //#define E_MUX2_PIN 44  // Needed for 5 to 8 inputs
+// Override the default DIO selector pins here, if needed.
+// Some pins files may provide defaults for these pins.
+//#define E_MUX0_PIN 40  // Always Required
+//#define E_MUX1_PIN 42  // Needed for 3 to 8 inputs
+//#define E_MUX2_PIN 44  // Needed for 5 to 8 inputs
 #endif
 
 /**
@@ -201,7 +199,7 @@
 //#define SWITCHING_NOZZLE
 #if ENABLED(SWITCHING_NOZZLE)
 #define SWITCHING_NOZZLE_SERVO_NR 0
-  //#define SWITCHING_NOZZLE_E1_SERVO_NR 1          // If two servos are used, the index of the second
+//#define SWITCHING_NOZZLE_E1_SERVO_NR 1          // If two servos are used, the index of the second
 #define SWITCHING_NOZZLE_SERVO_ANGLES \
   {                                   \
     0, 90                             \
@@ -230,15 +228,15 @@
   {                                \
     -78, 184                       \
   }                                      // X positions for parking the extruders
-#define PARKING_EXTRUDER_GRAB_DISTANCE 1 // (mm) Distance to move beyond the parking point to grab the extruder
-  //#define MANUAL_SOLENOID_CONTROL                   // Manual control of docking solenoids with M380 S / M381
+#define PARKING_EXTRUDER_GRAB_DISTANCE 1 // (mm) Distance to move beyond the parking point to grab the extruder \
+                                         //#define MANUAL_SOLENOID_CONTROL                   // Manual control of docking solenoids with M380 S / M381
 
 #if ENABLED(PARKING_EXTRUDER)
 
 #define PARKING_EXTRUDER_SOLENOIDS_INVERT          // If enabled, the solenoid is NOT magnetized with applied voltage
 #define PARKING_EXTRUDER_SOLENOIDS_PINS_ACTIVE LOW // LOW or HIGH pin signal energizes the coil
-#define PARKING_EXTRUDER_SOLENOIDS_DELAY 250       // (ms) Delay for magnetic field. No delay if 0 or not defined.
-    //#define MANUAL_SOLENOID_CONTROL                   // Manual control of docking solenoids with M380 S / M381
+#define PARKING_EXTRUDER_SOLENOIDS_DELAY 250       // (ms) Delay for magnetic field. No delay if 0 or not defined. \
+                                                   //#define MANUAL_SOLENOID_CONTROL                   // Manual control of docking solenoids with M380 S / M381
 
 #elif ENABLED(MAGNETIC_PARKING_EXTRUDER)
 
@@ -292,9 +290,9 @@
   } // (degrees) Angles for Lock, Unlock
 #elif ENABLED(MAGNETIC_SWITCHING_TOOLHEAD)
 #define SWITCHING_TOOLHEAD_Y_RELEASE 5 // (mm) Security distance Y axis
-#define SWITCHING_TOOLHEAD_X_SECURITY        \
-  {                                          \
-    90, 150                                  \
+#define SWITCHING_TOOLHEAD_X_SECURITY \
+  {                                   \
+    90, 150                           \
   } // (mm) Security distance X axis (T0,T1) \
     //#define PRIME_BEFORE_REMOVE                       // Prime the nozzle before release from the dock
 #if ENABLED(PRIME_BEFORE_REMOVE)
@@ -320,10 +318,10 @@
 #if ENABLED(MIXING_EXTRUDER)
 #define MIXING_STEPPERS 2       // Number of steppers in your mixing extruder
 #define MIXING_VIRTUAL_TOOLS 16 // Use the Virtual Tool method with M163 and M164
-  //#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
-  //#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
+//#define DIRECT_MIXING_IN_G1    // Allow ABCDHI mix factors in G1 movement commands
+//#define GRADIENT_MIX           // Support for gradient mixing with M166 and LCD
 #if ENABLED(GRADIENT_MIX)
-    //#define GRADIENT_VTOOL       // Add M166 T to use a V-tool index as a Gradient alias
+//#define GRADIENT_VTOOL       // Add M166 T to use a V-tool index as a Gradient alias
 #endif
 #endif
 
@@ -348,17 +346,17 @@
 #if ENABLED(PSU_CONTROL)
 #define PSU_ACTIVE_HIGH false // Set 'false' for ATX, 'true' for X-Box
 
-  //#define PSU_DEFAULT_OFF         // Keep power off until enabled directly with M80
-  //#define PSU_POWERUP_DELAY 100   // (ms) Delay for the PSU to warm up to full power
+//#define PSU_DEFAULT_OFF         // Keep power off until enabled directly with M80
+//#define PSU_POWERUP_DELAY 100   // (ms) Delay for the PSU to warm up to full power
 
-  //#define AUTO_POWER_CONTROL      // Enable automatic control of the PS_ON pin
+//#define AUTO_POWER_CONTROL      // Enable automatic control of the PS_ON pin
 #if ENABLED(AUTO_POWER_CONTROL)
 #define AUTO_POWER_FANS // Turn on PSU if fans need power
 #define AUTO_POWER_E_FANS
 #define AUTO_POWER_CONTROLLERFAN
 #define AUTO_POWER_CHAMBER_FAN
-    //#define AUTO_POWER_E_TEMP        50 // (°C) Turn on PSU over this temperature
-    //#define AUTO_POWER_CHAMBER_TEMP  30 // (°C) Turn on PSU over this temperature
+//#define AUTO_POWER_E_TEMP        50 // (°C) Turn on PSU over this temperature
+//#define AUTO_POWER_CHAMBER_TEMP  30 // (°C) Turn on PSU over this temperature
 #define POWER_TIMEOUT 30
 #endif
 #endif
@@ -495,33 +493,33 @@
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 #if ENABLED(PIDTEMP)
-  //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
-  //#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
-  //#define PID_DEBUG             // Sends debug data to the serial port.
-  //#define PID_OPENLOOP 1        // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
-  //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
-                                  // Set/get with gcode: M301 E[extruder number, 0-2]
+//#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
+//#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
+//#define PID_DEBUG             // Sends debug data to the serial port.
+//#define PID_OPENLOOP 1        // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
+//#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
+//#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
+// Set/get with gcode: M301 E[extruder number, 0-2]
 #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature \
                                 // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 
-  // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
+// If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
 #define DEFAULT_Kp 28.98
 #define DEFAULT_Ki 2.31
 #define DEFAULT_Kd 90.95
 
-  // MakerGear
-  //#define DEFAULT_Kp 7.0
-  //#define DEFAULT_Ki 0.1
-  //#define DEFAULT_Kd 12
+// MakerGear
+//#define DEFAULT_Kp 7.0
+//#define DEFAULT_Ki 0.1
+//#define DEFAULT_Kd 12
 
-  // Mendel Parts V9 on 12V
-  //#define DEFAULT_Kp 63.0
-  //#define DEFAULT_Ki 2.25
-  //#define DEFAULT_Kd 440
+// Mendel Parts V9 on 12V
+//#define DEFAULT_Kp 63.0
+//#define DEFAULT_Ki 2.25
+//#define DEFAULT_Kd 440
 
-#endif                    // PIDTEMP
+#endif // PIDTEMP
 
 //===========================================================================
 //====================== PID > Bed Temperature Control ======================
@@ -553,22 +551,22 @@
 #define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
 
 #if ENABLED(PIDTEMPBED)
-  //#define MIN_BED_POWER 0
-  //#define PID_BED_DEBUG // Sends debug data to the serial port.
+//#define MIN_BED_POWER 0
+//#define PID_BED_DEBUG // Sends debug data to the serial port.
 
-  //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
-  //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
+//120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
+//from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
 #define DEFAULT_bedKp 10.00
 #define DEFAULT_bedKi .023
 #define DEFAULT_bedKd 305.4
 
-  //120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
-  //from pidautotune
-  //#define DEFAULT_bedKp 97.1
-  //#define DEFAULT_bedKi 1.41
-  //#define DEFAULT_bedKd 1675.16
+//120V 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
+//from pidautotune
+//#define DEFAULT_bedKp 97.1
+//#define DEFAULT_bedKi 1.41
+//#define DEFAULT_bedKd 1675.16
 
-  // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
+// FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
 
 // @section extruder
@@ -645,27 +643,27 @@
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
 #if DISABLED(ENDSTOPPULLUPS)
-  // Disable ENDSTOPPULLUPS to set pullups individually
-  //#define ENDSTOPPULLUP_XMAX
-  //#define ENDSTOPPULLUP_YMAX
-  //#define ENDSTOPPULLUP_ZMAX
-  //#define ENDSTOPPULLUP_XMIN
-  //#define ENDSTOPPULLUP_YMIN
-  //#define ENDSTOPPULLUP_ZMIN
-  //#define ENDSTOPPULLUP_ZMIN_PROBE
+// Disable ENDSTOPPULLUPS to set pullups individually
+//#define ENDSTOPPULLUP_XMAX
+//#define ENDSTOPPULLUP_YMAX
+//#define ENDSTOPPULLUP_ZMAX
+//#define ENDSTOPPULLUP_XMIN
+//#define ENDSTOPPULLUP_YMIN
+//#define ENDSTOPPULLUP_ZMIN
+//#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 
 // Enable pulldown for all endstops to prevent a floating state
 //#define ENDSTOPPULLDOWNS
 #if DISABLED(ENDSTOPPULLDOWNS)
-  // Disable ENDSTOPPULLDOWNS to set pulldowns individually
-  //#define ENDSTOPPULLDOWN_XMAX
-  //#define ENDSTOPPULLDOWN_YMAX
-  //#define ENDSTOPPULLDOWN_ZMAX
-  //#define ENDSTOPPULLDOWN_XMIN
-  //#define ENDSTOPPULLDOWN_YMIN
-  //#define ENDSTOPPULLDOWN_ZMIN
-  //#define ENDSTOPPULLDOWN_ZMIN_PROBE
+// Disable ENDSTOPPULLDOWNS to set pulldowns individually
+//#define ENDSTOPPULLDOWN_XMAX
+//#define ENDSTOPPULLDOWN_YMAX
+//#define ENDSTOPPULLDOWN_ZMAX
+//#define ENDSTOPPULLDOWN_XMIN
+//#define ENDSTOPPULLDOWN_YMIN
+//#define ENDSTOPPULLDOWN_ZMIN
+//#define ENDSTOPPULLDOWN_ZMIN_PROBE
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
@@ -822,7 +820,7 @@
 #define DEFAULT_YJERK 10.0
 #define DEFAULT_ZJERK 0.3
 
-  //#define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
+//#define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
 #if ENABLED(LIMITED_JERK_EDITING)
 #define MAX_JERK_EDIT_VALUES \
   {                          \
@@ -939,8 +937,8 @@
 //#define TOUCH_MI_PROBE
 #if ENABLED(TOUCH_MI_PROBE)
 #define TOUCH_MI_RETRACT_Z 0.5 // Height at which the probe retracts
-  //#define TOUCH_MI_DEPLOY_XPOS (X_MAX_BED + 2)  // For a magnet on the right side of the bed
-  //#define TOUCH_MI_MANUAL_DEPLOY                // For manual deploy (LCD menu)
+//#define TOUCH_MI_DEPLOY_XPOS (X_MAX_BED + 2)  // For a magnet on the right side of the bed
+//#define TOUCH_MI_MANUAL_DEPLOY                // For manual deploy (LCD menu)
 #endif
 
 // A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
@@ -1049,7 +1047,7 @@
 // Before deploy/stow pause for user confirmation
 //#define PAUSE_BEFORE_DEPLOY_STOW
 #if ENABLED(PAUSE_BEFORE_DEPLOY_STOW)
-  //#define PAUSE_PROBE_DEPLOY_WHEN_TRIGGERED // For Manual Deploy Allenkey Probe
+//#define PAUSE_PROBE_DEPLOY_WHEN_TRIGGERED // For Manual Deploy Allenkey Probe
 #endif
 
 /**
@@ -1061,7 +1059,7 @@
  */
 //#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
-  //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
+//#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
 #endif
 //#define PROBING_FANS_OFF          // Turn fans off when probing
 //#define PROBING_STEPPERS_OFF      // Turn steppers off (unless needed to hold position) when probing
@@ -1114,7 +1112,7 @@
 //#define UNKNOWN_Z_NO_RAISE      // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
 //#define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
-                                  // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
+// Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
 //#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
 
@@ -1164,7 +1162,7 @@
 #endif
 
 #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS)
-  //#define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
+//#define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
 #endif
 
 /**
@@ -1180,22 +1178,22 @@
 #define NUM_RUNOUT_SENSORS 1       // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
 #define FIL_RUNOUT_INVERTING false // Set to true to invert the logic of the sensor.
 #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins.
-  //#define FIL_RUNOUT_PULLDOWN      // Use internal pulldown for filament runout pins.
+//#define FIL_RUNOUT_PULLDOWN      // Use internal pulldown for filament runout pins.
 
-  // Set one or more commands to execute on filament runout.
-  // (After 'M412 H' Marlin will ask the host to handle the process.)
+// Set one or more commands to execute on filament runout.
+// (After 'M412 H' Marlin will ask the host to handle the process.)
 #define FILAMENT_RUNOUT_SCRIPT "M600"
 
-  // After a runout is detected, continue printing this length of filament
-  // before executing the runout script. Useful for a sensor at the end of
-  // a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
-  //#define FILAMENT_RUNOUT_DISTANCE_MM 25
+// After a runout is detected, continue printing this length of filament
+// before executing the runout script. Useful for a sensor at the end of
+// a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
+//#define FILAMENT_RUNOUT_DISTANCE_MM 25
 
 #ifdef FILAMENT_RUNOUT_DISTANCE_MM
-    // Enable this option to use an encoder disc that toggles the runout pin
-    // as the filament moves. (Be sure to set FILAMENT_RUNOUT_DISTANCE_MM
-    // large enough to avoid false positives.)
-    //#define FILAMENT_MOTION_SENSOR
+// Enable this option to use an encoder disc that toggles the runout pin
+// as the filament moves. (Be sure to set FILAMENT_RUNOUT_DISTANCE_MM
+// large enough to avoid false positives.)
+//#define FILAMENT_MOTION_SENSOR
 #endif
 #endif
 
@@ -1257,21 +1255,21 @@
 //#define DEBUG_LEVELING_FEATURE
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_BILINEAR, AUTO_BED_LEVELING_UBL)
-  // Gradually reduce leveling correction until a set height is reached,
-  // at which point movement will be level to the machine's XY plane.
-  // The height can be set with M420 Z<height>
+// Gradually reduce leveling correction until a set height is reached,
+// at which point movement will be level to the machine's XY plane.
+// The height can be set with M420 Z<height>
 #define ENABLE_LEVELING_FADE_HEIGHT
 
-  // For Cartesian machines, instead of dividing moves on mesh boundaries,
-  // split up moves into short segments like a Delta. This follows the
-  // contours of the bed more closely than edge-to-edge straight moves.
+// For Cartesian machines, instead of dividing moves on mesh boundaries,
+// split up moves into short segments like a Delta. This follows the
+// contours of the bed more closely than edge-to-edge straight moves.
 #define SEGMENT_LEVELED_MOVES
 #define LEVELED_SEGMENT_LENGTH 5.0 // (mm) Length of all segments (except the last one)
 
-  /**
+/**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  //#define G26_MESH_VALIDATION
+//#define G26_MESH_VALIDATION
 #if ENABLED(G26_MESH_VALIDATION)
 #define MESH_TEST_NOZZLE_SIZE 0.4  // (mm) Diameter of primary nozzle.
 #define MESH_TEST_LAYER_HEIGHT 0.2 // (mm) Default layer height for the G26 Mesh Validation Tool.
@@ -1285,26 +1283,26 @@
 
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
-  // Set the number of grid points per dimension.
+// Set the number of grid points per dimension.
 #define GRID_MAX_POINTS_X 3
 #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
-  // Probe along the Y axis, advancing X after each column
-  //#define PROBE_Y_FIRST
+// Probe along the Y axis, advancing X after each column
+//#define PROBE_Y_FIRST
 
 #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
-    // Beyond the probed grid, continue the implied tilt?
-    // Default is to maintain the height of the nearest edge.
-    //#define EXTRAPOLATE_BEYOND_GRID
+// Beyond the probed grid, continue the implied tilt?
+// Default is to maintain the height of the nearest edge.
+//#define EXTRAPOLATE_BEYOND_GRID
 
-    //
-    // Experimental Subdivision of the grid by Catmull-Rom method.
-    // Synthesizes intermediate points to produce a more detailed mesh.
-    //
-    //#define ABL_BILINEAR_SUBDIVISION
+//
+// Experimental Subdivision of the grid by Catmull-Rom method.
+// Synthesizes intermediate points to produce a more detailed mesh.
+//
+//#define ABL_BILINEAR_SUBDIVISION
 #if ENABLED(ABL_BILINEAR_SUBDIVISION)
-      // Number of subdivisions between probe points
+// Number of subdivisions between probe points
 #define BILINEAR_SUBDIVISIONS 3
 #endif
 
@@ -1312,11 +1310,11 @@
 
 #elif ENABLED(AUTO_BED_LEVELING_UBL)
 
-  //===========================================================================
-  //========================= Unified Bed Leveling ============================
-  //===========================================================================
+//===========================================================================
+//========================= Unified Bed Leveling ============================
+//===========================================================================
 
-  //#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
+//#define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
 #define MESH_INSET 1         // Set Mesh bounds as an inset region of the bed
 #define GRID_MAX_POINTS_X 10 // Don't use more than 15 points per axis, implementation limited.
@@ -1325,20 +1323,20 @@
 #define UBL_MESH_EDIT_MOVES_Z   // Sophisticated users prefer no movement of nozzle
 #define UBL_SAVE_ACTIVE_ON_M500 // Save the currently active mesh in the current slot on M500
 
-  //#define UBL_Z_RAISE_WHEN_OFF_MESH 2.5 // When the nozzle is off the mesh, this value is used
-                                          // as the Z-Height correction value.
+//#define UBL_Z_RAISE_WHEN_OFF_MESH 2.5 // When the nozzle is off the mesh, this value is used
+// as the Z-Height correction value.
 
 #elif ENABLED(MESH_BED_LEVELING)
 
-  //===========================================================================
-  //=================================== Mesh ==================================
-  //===========================================================================
+//===========================================================================
+//=================================== Mesh ==================================
+//===========================================================================
 
 #define MESH_INSET 10       // Set Mesh bounds as an inset region of the bed
 #define GRID_MAX_POINTS_X 3 // Don't use more than 7 points per axis, implementation limited.
 #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
-  //#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
+//#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
 
 #endif // BED_LEVELING
 
@@ -1351,7 +1349,7 @@
 #if ENABLED(LCD_BED_LEVELING)
 #define MESH_EDIT_Z_STEP 0.025 // (mm) Step size while manually probing Z axis.
 #define LCD_PROBE_Z_RANGE 4    // (mm) Z Range centered on Z_MIN_POS for LCD Z adjustment
-  //#define MESH_EDIT_MENU        // Add a menu to edit mesh points
+//#define MESH_EDIT_MENU        // Add a menu to edit mesh points
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
@@ -1364,7 +1362,7 @@
   }                              // (mm) Left, Front, Right, Back insets
 #define LEVEL_CORNERS_HEIGHT 0.0 // (mm) Z height of nozzle at leveling points
 #define LEVEL_CORNERS_Z_HOP 4.0  // (mm) Z height of nozzle between leveling points
-  //#define LEVEL_CENTER_TOO              // Move to the center after the last corner
+//#define LEVEL_CENTER_TOO              // Move to the center after the last corner
 #endif
 
 /**
@@ -1372,7 +1370,6 @@
  * Useful to retract or move the Z probe out of the way.
  */
 //#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
-
 
 // @section homing
 
@@ -1441,16 +1438,16 @@
 //#define SKEW_CORRECTION
 
 #if ENABLED(SKEW_CORRECTION)
-  // Input all length measurements here:
+// Input all length measurements here:
 #define XY_DIAG_AC 282.8427124746
 #define XY_DIAG_BD 282.8427124746
 #define XY_SIDE_AD 200
 
-  // Or, set the default skew factors directly here
-  // to override the above measurements:
+// Or, set the default skew factors directly here
+// to override the above measurements:
 #define XY_SKEW_FACTOR 0.0
 
-  //#define SKEW_CORRECTION_FOR_Z
+//#define SKEW_CORRECTION_FOR_Z
 #if ENABLED(SKEW_CORRECTION_FOR_Z)
 #define XZ_DIAG_AC 282.8427124746
 #define XZ_DIAG_BD 282.8427124746
@@ -1461,8 +1458,8 @@
 #define YZ_SKEW_FACTOR 0.0
 #endif
 
-  // Enable this option for M852 to set skew at runtime
-  //#define SKEW_CORRECTION_GCODE
+// Enable this option for M852 to set skew at runtime
+//#define SKEW_CORRECTION_GCODE
 #endif
 
 //=============================================================================
@@ -1484,7 +1481,7 @@
 //#define DISABLE_M503        // Saves ~2700 bytes of PROGMEM. Disable for release!
 #define EEPROM_CHITCHAT // Give feedback on EEPROM commands. Disable to save PROGMEM.
 #if ENABLED(EEPROM_SETTINGS)
-  //#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
+//#define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
 #endif
 
 //
@@ -1534,7 +1531,7 @@
 //#define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
-  // Specify a park position as { X, Y, Z_raise }
+// Specify a park position as { X, Y, Z_raise }
 #define NOZZLE_PARK_POINT                  \
   {                                        \
     (X_MIN_POS + 10), (Y_MAX_POS - 10), 20 \
@@ -1584,14 +1581,14 @@
 //#define NOZZLE_CLEAN_FEATURE
 
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
-  // Default number of pattern repetitions
+// Default number of pattern repetitions
 #define NOZZLE_CLEAN_STROKES 12
 
-  // Default number of triangles
+// Default number of triangles
 #define NOZZLE_CLEAN_TRIANGLES 3
 
-  // Specify positions for each tool as { { X, Y, Z }, { X, Y, Z } }
-  // Dual hotend system may use { {  -20, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  420, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) }}
+// Specify positions for each tool as { { X, Y, Z }, { X, Y, Z } }
+// Dual hotend system may use { {  -20, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  420, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) }}
 #define NOZZLE_CLEAN_START_POINT \
   {                              \
     {                            \
@@ -1605,18 +1602,18 @@
     }                          \
   }
 
-  // Circular pattern radius
+// Circular pattern radius
 #define NOZZLE_CLEAN_CIRCLE_RADIUS 6.5
-  // Circular pattern circle fragments number
+// Circular pattern circle fragments number
 #define NOZZLE_CLEAN_CIRCLE_FN 10
-  // Middle point of circle
+// Middle point of circle
 #define NOZZLE_CLEAN_CIRCLE_MIDDLE NOZZLE_CLEAN_START_POINT
 
-  // Move the nozzle to the initial position after cleaning
+// Move the nozzle to the initial position after cleaning
 #define NOZZLE_CLEAN_GOBACK
 
-  // Enable for a purge/clean station that's always at the gantry height (thus no Z move)
-  //#define NOZZLE_CLEAN_NO_Z
+// Enable for a purge/clean station that's always at the gantry height (thus no Z move)
+//#define NOZZLE_CLEAN_NO_Z
 #endif
 
 /**
@@ -1865,9 +1862,9 @@
 // ANET and Tronxy 20x4 Controller
 //
 //#define ZONESTAR_LCD            // Requires ADC_KEYPAD_PIN to be assigned to an analog pin.
-                                  // This LCD is known to be susceptible to electrical interference
-                                  // which scrambles the display.  Pressing any button clears it up.
-                                  // This is a LCD2004 display with 5 analog buttons.
+// This LCD is known to be susceptible to electrical interference
+// which scrambles the display.  Pressing any button clears it up.
+// This is a LCD2004 display with 5 analog buttons.
 
 //
 // Generic 16x2, 16x4, 20x2, or 20x4 character-based LCD.
@@ -2080,7 +2077,7 @@
 //#define SAV_3DGLCD
 #if ENABLED(SAV_3DGLCD)
 #define U8GLIB_SSD1306
-  //#define U8GLIB_SH1106
+//#define U8GLIB_SH1106
 #endif
 
 //
@@ -2243,27 +2240,27 @@
 //#define RGBW_LED
 
 #if EITHER(RGB_LED, RGBW_LED)
-  //#define RGB_LED_R_PIN 34
-  //#define RGB_LED_G_PIN 43
-  //#define RGB_LED_B_PIN 35
-  //#define RGB_LED_W_PIN -1
+//#define RGB_LED_R_PIN 34
+//#define RGB_LED_G_PIN 43
+//#define RGB_LED_B_PIN 35
+//#define RGB_LED_W_PIN -1
 #endif
 
 // Support for Adafruit Neopixel LED driver
 //#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
-#define NEOPIXEL_TYPE NEO_GRBW  // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
-#define NEOPIXEL_PIN 4          // LED driving pin
-  //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
-  //#define NEOPIXEL2_PIN    5
+#define NEOPIXEL_TYPE NEO_GRBW // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
+#define NEOPIXEL_PIN 4         // LED driving pin
+//#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
+//#define NEOPIXEL2_PIN    5
 #define NEOPIXEL_PIXELS 30      // Number of LEDs in the strip, larger of 2 strips if 2 neopixel strips are used
 #define NEOPIXEL_IS_SEQUENTIAL  // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
 #define NEOPIXEL_BRIGHTNESS 127 // Initial brightness (0-255)
-  //#define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
+//#define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
 
-  // Use a single Neopixel LED for static (background) lighting
-  //#define NEOPIXEL_BKGD_LED_INDEX  0               // Index of the LED to use
-  //#define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 } // R, G, B, W
+// Use a single Neopixel LED for static (background) lighting
+//#define NEOPIXEL_BKGD_LED_INDEX  0               // Index of the LED to use
+//#define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 } // R, G, B, W
 #endif
 
 /**
@@ -2303,8 +2300,8 @@
     300             \
   }
 
-// Only power servos during movement, otherwise leave off to prevent jitter
-//#define DEACTIVATE_SERVOS_AFTER_MOVE
+    // Only power servos during movement, otherwise leave off to prevent jitter
+    //#define DEACTIVATE_SERVOS_AFTER_MOVE
 
-// Allow servo angle to be edited and saved to EEPROM
-//#define EDITABLE_SERVO_ANGLES
+    // Allow servo angle to be edited and saved to EEPROM
+    //#define EDITABLE_SERVO_ANGLES

@@ -131,7 +131,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-#define MOTHERBOARD BOARD_BIGTREE_SKR_PRO_V1_1
+#define MOTHERBOARD BOARD_BTT_SKR_PRO_V1_1
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -433,7 +433,6 @@
 #define TEMP_SENSOR_4 0
 #define TEMP_SENSOR_5 0
 
-=======
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
 #define TEMP_SENSOR_BED 1
@@ -2300,8 +2299,8 @@
     300             \
   }
 
-    // Only power servos during movement, otherwise leave off to prevent jitter
-    //#define DEACTIVATE_SERVOS_AFTER_MOVE
+// Only power servos during movement, otherwise leave off to prevent jitter
+//#define DEACTIVATE_SERVOS_AFTER_MOVE
 
-    // Allow servo angle to be edited and saved to EEPROM
-    //#define EDITABLE_SERVO_ANGLES
+// Allow servo angle to be edited and saved to EEPROM
+//#define EDITABLE_SERVO_ANGLES

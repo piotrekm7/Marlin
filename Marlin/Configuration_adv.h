@@ -31,7 +31,7 @@
  * Basic settings can be found in Configuration.h
  *
  */
-#define CONFIGURATION_ADV_H_VERSION 020000
+#define CONFIGURATION_ADV_H_VERSION 020004
 
 // @section temperature
 
@@ -607,29 +607,57 @@
  */
 //#define Z_STEPPER_AUTO_ALIGN
 #if ENABLED(Z_STEPPER_AUTO_ALIGN)
-// Define probe X and Y positions for Z1, Z2 [, Z3]
-#define Z_STEPPER_ALIGN_X \
-   {                      \
-      10, 150, 290        \
+// Define probe X and Y positions for Z1, Z2 [, Z3 [, Z4]]
+// If not defined, probe limits will be used.
+// Override with 'M422 S<index> X<pos> Y<pos>'
+//#define Z_STEPPER_ALIGN_XY { {  10, 190 }, { 100,  10 }, { 190, 190 } }
+
+/**
+   * Orientation for the automatically-calculated probe positions.
+   * Override Z stepper align points with 'M422 S<index> X<pos> Y<pos>'
+   *
+   * 2 Steppers:  (0)     (1)
+   *               |       |   2   |
+   *               | 1   2 |       |
+   *               |       |   1   |
+   *
+   * 3 Steppers:  (0)     (1)     (2)     (3)
+   *               |   3   | 1     | 2   1 |     2 |
+   *               |       |     3 |       | 3     |
+   *               | 1   2 | 2     |   3   |     1 |
+   *
+   * 4 Steppers:  (0)     (1)     (2)     (3)
+   *               | 4   3 | 1   4 | 2   1 | 3   2 |
+   *               |       |       |       |       |
+   *               | 1   2 | 2   3 | 3   4 | 4   1 |
+   *
+   */
+#ifndef Z_STEPPER_ALIGN_XY
+//#define Z_STEPPERS_ORIENTATION 0
+#endif
+
+// Provide Z stepper positions for more rapid convergence in bed alignment.
+// Requires triple stepper drivers (i.e., set NUM_Z_STEPPER_DRIVERS to 3)
+//#define Z_STEPPER_ALIGN_KNOWN_STEPPER_POSITIONS
+#if ENABLED(Z_STEPPER_ALIGN_KNOWN_STEPPER_POSITIONS)
+// Define Stepper XY positions for Z1, Z2, Z3 corresponding to
+// the Z screw positions in the bed carriage.
+// Define one position per Z stepper in stepper driver order.
+#define Z_STEPPER_ALIGN_STEPPER_XY                    \
+   {                                                  \
+      {210.7, 102.5}, {152.6, 220.0}, { 94.5, 102.5 } \
    }
-#define Z_STEPPER_ALIGN_Y \
-   {                      \
-      290, 10, 290        \
-   }
-// Set number of iterations to align
-#define Z_STEPPER_ALIGN_ITERATIONS 3
-// Enable to restore leveling setup after operation
-#define RESTORE_LEVELING_AFTER_G34
+#else
+// Amplification factor. Used to scale the correction step up or down in case
+// the stepper (spindle) position is farther out than the test point.
+#define Z_STEPPER_ALIGN_AMP 1.0 // Use a value > 1.0 NOTE: This may cause instability!
+#endif
 
 // On a 300mm bed a 5% grade would give a misalignment of ~1.5cm
-#define G34_MAX_GRADE 5 // (%) Maximum incline G34 will handle
-
-// Use the amplification factor to de-/increase correction step.
-// In case the stepper (spindle) position is further out than the test point
-// Use a value > 1. NOTE: This may cause instability
-#define Z_STEPPER_ALIGN_AMP 1.0
-// Stop criterion. If the accuracy is better than this stop iterating early
-#define Z_STEPPER_ALIGN_ACC 0.02
+#define G34_MAX_GRADE 5              // (%) Maximum incline that G34 will handle
+#define Z_STEPPER_ALIGN_ITERATIONS 5 // Number of iterations to apply during alignment
+#define Z_STEPPER_ALIGN_ACC 0.02     // Stop iterating early if the accuracy is better than this
+#define RESTORE_LEVELING_AFTER_G34   // Restore leveling after G34 is done?
 #endif
 
 // @section motion
@@ -1255,6 +1283,10 @@
 //#define TFT_BTOKMENU_COLOR 0x145F // 00010 100010 11111 Cyan
 #endif
 
+#if HAS_ADC_BUTTONS
+#define ADC_BUTTON_DEBOUNCE_DELAY 16 // (ms) Increase if buttons bounce or repeat too fast
+#endif
+
 // @section safety
 
 /**
@@ -1282,10 +1314,12 @@
  */
 //#define BABYSTEPPING
 #if ENABLED(BABYSTEPPING)
+//#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
 //#define BABYSTEP_WITHOUT_HOMING
 //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
-#define BABYSTEP_INVERT_Z false  // Change if Z babysteps should go the other way
-#define BABYSTEP_MULTIPLICATOR 1 // Babysteps are very small. Increase for faster motion.
+#define BABYSTEP_INVERT_Z false    // Change if Z babysteps should go the other way
+#define BABYSTEP_MULTIPLICATOR_Z 1 // Babysteps are very small. Increase for faster motion.
+#define BABYSTEP_MULTIPLICATOR_XY 1
 
 //#define DOUBLECLICK_FOR_Z_BABYSTEPPING  // Double-click on the Status Screen for Z Babystepping.
 #if ENABLED(DOUBLECLICK_FOR_Z_BABYSTEPPING)
@@ -2229,7 +2263,9 @@
 // @section i2cbus
 
 //#define EXPERIMENTAL_I2CBUS
+#if ENABLED(EXPERIMENTAL_I2CBUS)
 #define I2C_SLAVE_ADDRESS 0 // Set a value from 8 to 127 to act as a slave
+#endif
 
 // @section extras
 
@@ -2420,6 +2456,9 @@
  * Spend 28 bytes of SRAM to optimize the GCode parser
  */
 #define FASTER_GCODE_PARSER
+#if ENABLED(FASTER_GCODE_PARSER)
+//#define GCODE_QUOTED_STRINGS  // Support for quoted string parameters
+#endif
 
 /**
  * CNC G-code options

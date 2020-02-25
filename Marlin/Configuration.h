@@ -36,7 +36,7 @@
  * Advanced settings can be found in Configuration_adv.h
  *
  */
-#define CONFIGURATION_H_VERSION 020000
+#define CONFIGURATION_H_VERSION 020004
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -427,7 +427,10 @@
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
 #define TEMP_SENSOR_5 0
+#define TEMP_SENSOR_6 0
+#define TEMP_SENSOR_7 0
 #define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
@@ -455,6 +458,8 @@
 #define HEATER_3_MINTEMP 5
 #define HEATER_4_MINTEMP 5
 #define HEATER_5_MINTEMP 5
+#define HEATER_6_MINTEMP 5
+#define HEATER_7_MINTEMP 5
 #define BED_MINTEMP 5
 
 // Above this temperature the heater will be switched off.
@@ -466,6 +471,8 @@
 #define HEATER_3_MAXTEMP 275
 #define HEATER_4_MAXTEMP 275
 #define HEATER_5_MAXTEMP 275
+#define HEATER_6_MAXTEMP 275
+#define HEATER_7_MAXTEMP 275
 #define BED_MAXTEMP 150
 
 //===========================================================================
@@ -790,9 +797,8 @@
  *   https://reprap.org/forum/read.php?1,739819
  *   http://blog.kyneticcnc.com/2018/10/computing-junction-deviation-for-marlin.html
  */
-//#define JUNCTION_DEVIATION
-#if ENABLED(JUNCTION_DEVIATION)
-#define JUNCTION_DEVIATION_MM 0.02 // (mm) Distance from real junction edge
+#if DISABLED(CLASSIC_JERK)
+#define JUNCTION_DEVIATION_MM 0.013 // (mm) Distance from real junction edge
 #endif
 
 /**
@@ -946,9 +952,10 @@
  *     O-- FRONT --+
  *   (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER 10 // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER 10 // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 0  // Z offset: -below +above  [the nozzle]
+#define NOZZLE_TO_PROBE_OFFSET \
+  {                            \
+    10, 10, 0                  \
+  }
 
 // Certain types of probes need to stay away from edges
 #define MIN_PROBE_EDGE 10
@@ -1328,10 +1335,13 @@
 //#define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
-#define LEVEL_CORNERS_INSET 30   // (mm) An inset for corner leveling
-#define LEVEL_CORNERS_Z_HOP 4.0  // (mm) Move nozzle up before moving between corners
+#define LEVEL_CORNERS_INSET_LFRB \
+  {                              \
+    30, 30, 30, 30               \
+  }                              // (mm) Left, Front, Right, Back insets
 #define LEVEL_CORNERS_HEIGHT 0.0 // (mm) Z height of nozzle at leveling points
-//#define LEVEL_CENTER_TOO        // Move to the center after the last corner
+#define LEVEL_CORNERS_Z_HOP 4.0  // (mm) Z height of nozzle between leveling points
+//#define LEVEL_CENTER_TOO
 #endif
 
 /**
@@ -1672,7 +1682,7 @@
  * you must uncomment the following option or it won't work.
  *
  */
-#define SDSUPPORT
+//#define SDSUPPORT
 
 /**
  * SD CARD: SPI SPEED

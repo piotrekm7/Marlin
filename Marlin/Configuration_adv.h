@@ -450,9 +450,9 @@
 //#define CASE_LIGHT_USE_NEOPIXEL           // Use Neopixel LED as case light, requires NEOPIXEL_LED.
 #if ENABLED(CASE_LIGHT_USE_NEOPIXEL)
 #define CASE_LIGHT_NEOPIXEL_COLOR \
-  {                               \
-    255, 255, 255, 255            \
-  } // { Red, Green, Blue, White }
+   {                              \
+      255, 255, 255, 255          \
+   } // { Red, Green, Blue, White }
 #endif
 #endif
 
@@ -589,9 +589,9 @@
 #define Y_HOME_BUMP_MM 0
 #define Z_HOME_BUMP_MM 2
 #define HOMING_BUMP_DIVISOR \
-  {                         \
-    2, 2, 4                 \
-  } // Re-Bump Speed Divisor (Divides the Homing Feedrate)
+   {                        \
+      2, 2, 4               \
+   } // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 //#define QUICK_HOME                     // If homing includes X and Y, do a diagonal move initially
 //#define HOMING_BACKOFF_MM { 2, 2, 2 }  // (mm) Move away from the endstops after homing
 
@@ -710,10 +710,10 @@
 // Define Stepper XY positions for Z1, Z2, Z3 corresponding to
 // the Z screw positions in the bed carriage.
 // Define one position per Z stepper in stepper driver order.
-#define Z_STEPPER_ALIGN_STEPPER_XY                  \
-  {                                                 \
-    {210.7, 102.5}, {152.6, 220.0}, { 94.5, 102.5 } \
-  }
+#define Z_STEPPER_ALIGN_STEPPER_XY                    \
+   {                                                  \
+      {210.7, 102.5}, {152.6, 220.0}, { 94.5, 102.5 } \
+   }
 #else
 // Amplification factor. Used to scale the correction step up or down in case
 // the stepper (spindle) position is farther out than the test point.
@@ -729,10 +729,10 @@
 
 // @section motion
 
-#define AXIS_RELATIVE_MODES    \
-  {                            \
-    false, false, false, false \
-  }
+#define AXIS_RELATIVE_MODES      \
+   {                             \
+      false, false, false, false \
+   }
 
 // Add a Duplicate option for well-separated conjoined nozzles
 //#define MULTI_NOZZLE_DUPLICATION
@@ -782,9 +782,9 @@
 // Define values for backlash distance and correction.
 // If BACKLASH_GCODE is enabled these values are the defaults.
 #define BACKLASH_DISTANCE_MM \
-  {                          \
-    0, 0, 0                  \
-  }                             // (mm)
+   {                         \
+      0, 0, 0                \
+   }                            // (mm)
 #define BACKLASH_CORRECTION 0.0 // 0.0 = no correction; 1.0 = full correction
 
 // Set BACKLASH_SMOOTHING_MM to spread backlash correction over multiple segments
@@ -840,13 +840,13 @@
 
 // The true location and dimension the cube/bolt/washer on the bed.
 #define CALIBRATION_OBJECT_CENTER \
-  {                               \
-    264.0, -22.0, -2.0            \
-  } // mm
+   {                              \
+      264.0, -22.0, -2.0          \
+   } // mm
 #define CALIBRATION_OBJECT_DIMENSIONS \
-  {                                   \
-    10.0, 10.0, 10.0                  \
-  } // mm
+   {                                  \
+      10.0, 10.0, 10.0                \
+   } // mm
 
 // Comment out any sides which are unreachable by the probe. For best
 // auto-calibration results, all sides must be reachable.
@@ -888,10 +888,10 @@
 //#define MICROSTEP32 HIGH,LOW,HIGH
 
 // Microstep setting (Only functional when stepper driver microstep pins are connected to MCU.
-#define MICROSTEP_MODES    \
-  {                        \
-    32, 32, 16, 16, 16, 16 \
-  } // [1,2,4,8,16]
+#define MICROSTEP_MODES      \
+   {                         \
+      32, 32, 16, 16, 16, 16 \
+   } // [1,2,4,8,16]
 
 /**
  *  @section  stepper motor current
@@ -938,10 +938,10 @@
 #define DIGIPOT_I2C_NUM_CHANNELS 8 // 5DPRINT: 4     AZTEEG_X3_PRO: 8     MKS SBASE: 5
 // Actual motor currents in Amps. The number of entries must match DIGIPOT_I2C_NUM_CHANNELS.
 // These correspond to the physical drivers, so be mindful if the order is changed.
-#define DIGIPOT_I2C_MOTOR_CURRENTS         \
-  {                                        \
-    1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 \
-  } //  AZTEEG_X3_PRO
+#define DIGIPOT_I2C_MOTOR_CURRENTS           \
+   {                                         \
+      1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 \
+   } //  AZTEEG_X3_PRO
 
 //===========================================================================
 //=============================Additional Features===========================
@@ -950,10 +950,10 @@
 // @section lcd
 
 #if EITHER(ULTIPANEL, EXTENSIBLE_UI)
-#define MANUAL_FEEDRATE          \
-  {                              \
-    50 * 60, 50 * 60, 4 * 60, 60 \
-  }                               // Feedrates for manual moves along X, Y, Z, E from panel
+#define MANUAL_FEEDRATE            \
+   {                               \
+      50 * 60, 50 * 60, 4 * 60, 60 \
+   }                              // Feedrates for manual moves along X, Y, Z, E from panel
 #define SHORT_MANUAL_Z_MOVE 0.025 // (mm) Smallest manual Z move (< 0.1mm)
 #if ENABLED(ULTIPANEL)
 #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
@@ -1860,10 +1860,10 @@
    */
 //#define TOOLCHANGE_PARK
 #if ENABLED(TOOLCHANGE_PARK)
-#define TOOLCHANGE_PARK_XY         \
-  {                                \
-    X_MIN_POS + 10, Y_MIN_POS + 10 \
-  }
+#define TOOLCHANGE_PARK_XY           \
+   {                                 \
+      X_MIN_POS + 10, Y_MIN_POS + 10 \
+   }
 #define TOOLCHANGE_PARK_XY_FEEDRATE 6000 // (mm/m)
 #endif
 #endif
@@ -2055,7 +2055,7 @@
 #define INTERPOLATE true    // Interpolate X/Y/Z_MICROSTEPS to 256
 
 #if AXIS_IS_TMC(X)
-#define X_CURRENT 400            // (mA) RMS current. Multiply by 1.414 for peak current.
+#define X_CURRENT 600            // (mA) RMS current. Multiply by 1.414 for peak current.
 #define X_CURRENT_HOME X_CURRENT // (mA) RMS current for sensorless homing
 #define X_MICROSTEPS 256         // 0..256
 #define X_RSENSE 0.075
@@ -2071,7 +2071,7 @@
 #endif
 
 #if AXIS_IS_TMC(Y)
-#define Y_CURRENT 400
+#define Y_CURRENT 600
 #define Y_CURRENT_HOME Y_CURRENT
 #define Y_MICROSTEPS 256
 #define Y_RSENSE 0.075
@@ -2378,8 +2378,8 @@
    * }
    */
 #define TMC_ADV() \
-  {               \
-  }
+   {              \
+   }
 
 #endif // HAS_TRINAMIC
 
@@ -3007,18 +3007,18 @@
 //#define INVERT_JOY_Z  // Enable if Z direction is reversed
 
 // Use M119 with JOYSTICK_DEBUG to find reasonable values after connecting:
-#define JOY_X_LIMITS                    \
-  {                                     \
-    5600, 8190 - 100, 8190 + 100, 10800 \
-  } // min, deadzone start, deadzone end, max
-#define JOY_Y_LIMITS                    \
-  {                                     \
-    5600, 8250 - 100, 8250 + 100, 11000 \
-  }
-#define JOY_Z_LIMITS                    \
-  {                                     \
-    4800, 8080 - 100, 8080 + 100, 11550 \
-  }
+#define JOY_X_LIMITS                      \
+   {                                      \
+      5600, 8190 - 100, 8190 + 100, 10800 \
+   } // min, deadzone start, deadzone end, max
+#define JOY_Y_LIMITS                      \
+   {                                      \
+      5600, 8250 - 100, 8250 + 100, 11000 \
+   }
+#define JOY_Z_LIMITS                      \
+   {                                      \
+      4800, 8080 - 100, 8080 + 100, 11550 \
+   }
 #endif
 
 /**
@@ -3117,28 +3117,28 @@
 // This is for Prusa MK3-style extruders. Customize for your hardware.
 #define MMU2_FILAMENTCHANGE_EJECT_FEED 80.0
 #define MMU2_LOAD_TO_NOZZLE_SEQUENCE \
-  {7.2, 562},                        \
-      {14.4, 871},                   \
-      {36.0, 1393},                  \
-      {14.4, 871},                   \
-  {                                  \
-    50.0, 198                        \
-  }
+   {7.2, 562},                       \
+       {14.4, 871},                  \
+       {36.0, 1393},                 \
+       {14.4, 871},                  \
+   {                                 \
+      50.0, 198                      \
+   }
 
 #define MMU2_RAMMING_SEQUENCE \
-  {1.0, 1000},                \
-      {1.0, 1500},            \
-      {2.0, 2000},            \
-      {1.5, 3000},            \
-      {2.5, 4000},            \
-      {-15.0, 5000},          \
-      {-14.0, 1200},          \
-      {-6.0, 600},            \
-      {10.0, 700},            \
-      {-10.0, 400},           \
-  {                           \
-    -50.0, 2000               \
-  }
+   {1.0, 1000},               \
+       {1.0, 1500},           \
+       {2.0, 2000},           \
+       {1.5, 3000},           \
+       {2.5, 4000},           \
+       {-15.0, 5000},         \
+       {-14.0, 1200},         \
+       {-6.0, 600},           \
+       {10.0, 700},           \
+       {-10.0, 400},          \
+   {                          \
+      -50.0, 2000             \
+   }
 
 #endif
 

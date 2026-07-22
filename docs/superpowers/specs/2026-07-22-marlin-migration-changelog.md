@@ -46,10 +46,12 @@ Twoje ustawienia naniesione po jednym. Build: `pio run -e BTT_SKR_PRO` = SUCCESS
   Mechanicznie to samo zachowanie co miałeś. Przy homingu sensorless kierunek zależy
   od sprzętu (DIAG), więc sprawdź homing X/Y/Z ostrożnie przy pierwszym uruchomieniu.
 
-## Sugerowane (opcjonalne, nowe w 2.1.x)
+## Prąd homingu sensorless (nowe w 2.1.x)
 
-- `X_CURRENT_HOME` / `Y_CURRENT_HOME` < CURRENT: obniżony prąd przy homingu sensorless
-  (lepsza detekcja stall). Marlin ostrzega o tym przy kompilacji. Nie ustawione.
+- `X_CURRENT_HOME` / `Y_CURRENT_HOME` = **400 mA** (prąd roboczy 600). Obniżony prąd
+  przy homingu sensorless daje czystszą detekcję stall i mniej stukania w ramę.
+  Z pominięte (nie jest sensorless). 400 to punkt startowy do dostrojenia razem
+  ze `X_STALL_SENSITIVITY`/`Y_STALL_SENSITIVITY`.
 
 ## Nieistotne zmiany domyślnych (bez akcji)
 

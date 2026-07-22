@@ -60,6 +60,11 @@ Kosmetyka: `*_ENABLE_ON 0->LOW` (to samo), `Z_SAFE_HOMING_*_POINT ->X/Y_CENTER`
 `PID_FUNCTIONAL_RANGE 10->20`. Reszta driftu dotyczy funkcji których nie używasz
 (E1-E7, X2/Y2/Z2+, MMU2, spindle/laser).
 
+## Linear Advance
+
+- `LIN_ADVANCE` włączone, `ADVANCE_K` = **0.45** (w 2.1.x `LIN_ADVANCE_K` -> `ADVANCE_K`).
+  K dostrajalne w locie przez `M900 K<wartość>`.
+
 ## Firmware
 `.pio/build/BTT_SKR_PRO/firmware.bin` -> skopiuj na kartę SD, włóż do SKR PRO,
 reset. Nazwa `firmware.bin` jest wymagana przez bootloader BTT.

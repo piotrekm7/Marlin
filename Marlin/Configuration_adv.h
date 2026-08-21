@@ -3055,7 +3055,7 @@
 
   #if AXIS_IS_TMC_CONFIG(X)
     #define X_CURRENT 600
-    #define X_CURRENT_HOME  400        // (mA) RMS current for homing. (Typically lower than *_CURRENT.)
+    #define X_CURRENT_HOME  600        // (mA) RMS current for homing. (Typically lower than *_CURRENT.)
     #define X_MICROSTEPS 32
     #define X_RSENSE 0.075
     #define X_CHAIN_POS      -1        // -1..0: Not chained. 1: MCU MOSI connected. 2: Next in chain, ...
@@ -3075,7 +3075,7 @@
 
   #if AXIS_IS_TMC_CONFIG(Y)
     #define Y_CURRENT 600
-    #define Y_CURRENT_HOME  400
+    #define Y_CURRENT_HOME  600
     #define Y_MICROSTEPS 32
     #define Y_RSENSE 0.075
     #define Y_CHAIN_POS      -1
@@ -3501,9 +3501,9 @@
 
   #if ANY(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63
-    #define X_STALL_SENSITIVITY 4
+    #define X_STALL_SENSITIVITY 0
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
-    #define Y_STALL_SENSITIVITY 6
+    #define Y_STALL_SENSITIVITY 2
     #define Y2_STALL_SENSITIVITY Y_STALL_SENSITIVITY
     //#define Z_STALL_SENSITIVITY  8
     //#define Z2_STALL_SENSITIVITY Z_STALL_SENSITIVITY

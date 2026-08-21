@@ -1237,7 +1237,7 @@
 #define X_MIN_ENDSTOP_HIT_STATE LOW
 #define X_MAX_ENDSTOP_HIT_STATE HIGH
 #define Y_MIN_ENDSTOP_HIT_STATE LOW
-#define Y_MAX_ENDSTOP_HIT_STATE LOW
+#define Y_MAX_ENDSTOP_HIT_STATE HIGH
 #define Z_MIN_ENDSTOP_HIT_STATE LOW
 #define Z_MAX_ENDSTOP_HIT_STATE HIGH
 #define I_MIN_ENDSTOP_HIT_STATE HIGH
@@ -1300,7 +1300,7 @@
  * Override with M92 (when enabled below)
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT { 320, 320, 2133.3333, 826 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT { 320, 320, 4266.6666, 826 }
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1876,7 +1876,7 @@
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
 #define X_HOME_DIR -1
-#define Y_HOME_DIR 1
+#define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 //#define I_HOME_DIR -1
 //#define J_HOME_DIR -1

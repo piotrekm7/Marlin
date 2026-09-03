@@ -656,7 +656,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 350
+#define HEATER_0_MAXTEMP 365
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -710,9 +710,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 28.98
-    #define DEFAULT_Ki 2.31
-    #define DEFAULT_Kd 90.95
+    #define DEFAULT_Kp 9.88
+    #define DEFAULT_Ki 1.90
+    #define DEFAULT_Kd 12.84
   #endif
 #else
   #define BANG_MAX 255    // Limit hotend current while in bang-bang mode; 255=full current
